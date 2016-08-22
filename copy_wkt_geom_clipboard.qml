@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis version="2.14.5-Essen" minimumScale="-4.65661e-10" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" simplifyMaxScale="1" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+<qgis version="2.14.5-Essen" minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" simplifyMaxScale="1" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
   <edittypes/>
   <renderer-v2 forceraster="0" symbollevels="0" type="singleSymbol" enableorderby="0">
     <symbols>
@@ -189,9 +189,8 @@
     <selectedonly on=""/>
   </labelattributes>
   <SingleCategoryDiagramRenderer diagramType="Pie">
-    <DiagramCategory penColor="#000000" labelPlacementMethod="XHeight" penWidth="0" diagramOrientation="Up" minimumSize="0" barWidth="5" penAlpha="255" maxScaleDenominator="1e+08" backgroundColor="#ffffff" transparency="0" width="15" scaleDependency="Area" backgroundAlpha="255" angleOffset="1440" scaleBasedVisibility="0" enabled="0" height="15" sizeType="MM" minScaleDenominator="-4.65661e-10">
+    <DiagramCategory penColor="#000000" labelPlacementMethod="XHeight" penWidth="0" diagramOrientation="Up" minimumSize="0" barWidth="5" penAlpha="255" maxScaleDenominator="1e+08" backgroundColor="#ffffff" transparency="0" width="15" scaleDependency="Area" backgroundAlpha="255" angleOffset="1440" scaleBasedVisibility="0" enabled="0" height="15" sizeType="MM" minScaleDenominator="0">
       <fontProperties description="Noto Sans,10,-1,0,50,0,0,0,0,0" style=""/>
-      <attribute field="" color="#000000" label=""/>
     </DiagramCategory>
   </SingleCategoryDiagramRenderer>
   <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" zIndex="0" showAll="1"/>
@@ -199,7 +198,7 @@
   <excludeAttributesWMS/>
   <excludeAttributesWFS/>
   <attributeactions>
-    <actionsetting action="from qgis import ( core as QgsCore,gui as QgsGui, utils as QgsUtils )&#xa;from PyQt4 import QtGui&#xa;&#xa;crs4326 = QgsCore.QgsCoordinateReferenceSystem( 4326, QgsCore.QgsCoordinateReferenceSystem.EpsgCrsId )&#xa;layer = qgis.utils.iface.activeLayer()&#xa;crsLayer = layer.crs()&#xa;wkt = &quot;[% geom_to_wkt( $geometry )%]&quot;&#xa;geom = QgsGeometry.fromWkt( wkt )&#xa;json = geom.exportToGeoJSON()&#xa;if not crsLayer == crs4326:&#xa;  ct = QgsCoordinateTransform( crsLayer, crs4326 ) &#xa;  geom.transform( ct )&#xa;  wkt = geom.exportToWkt()&#xa;  json = geom.exportToGeoJSON()&#xa;del geom&#xa;strClip = &quot;WKT:\n%s\n\nGeojson\n%s&quot; % ( wkt, json)&#xa;cb = QtGui.QApplication.clipboard()&#xa;cb.setText( strClip, mode=cb.Clipboard )&#xa;&#xa;nameAction = &quot;Copy WKT to Clipboard&quot;&#xa;nameLayer = layer.name()&#xa;msgBar =  QgsUtils.iface.messageBar()&#xa;msg = &quot;Copied Geom to Clipboard. Using '%s' how CRS reference!&quot; % nameLayer&#xa;msgBar.pushMessage( &quot;Action %s&quot; % nameAction,  msg, QgsGui.QgsMessageBar.INFO, 4 )&#xa;" icon="" capture="0" type="1" name="Copy Geom(WKT and Geojson) to Clipboard"/>
+    <actionsetting action="from qgis import ( core as QgsCore,gui as QgsGui, utils as QgsUtils )&#xa;from PyQt4 import QtGui&#xa;&#xa;crs4326 = QgsCore.QgsCoordinateReferenceSystem( 4326, QgsCore.QgsCoordinateReferenceSystem.EpsgCrsId )&#xa;layer = qgis.utils.iface.activeLayer()&#xa;crsLayer = layer.crs()&#xa;wkt = &quot;[% geom_to_wkt( $geometry )%]&quot;&#xa;geom = QgsGeometry.fromWkt( wkt )&#xa;json = geom.exportToGeoJSON()&#xa;bbox = geom.boundingBox()&#xa;if not crsLayer == crs4326:&#xa;  ct = QgsCoordinateTransform( crsLayer, crs4326 ) &#xa;  geom.transform( ct )&#xa;  wkt = geom.exportToWkt()&#xa;  json = geom.exportToGeoJSON()&#xa;  bbox = geom.boundingBox()&#xa;del geom&#xa;min_max = &quot;%f %f %f %f&quot; % ( bbox.xMinimum(), bbox.yMinimum(), bbox.xMaximum(), bbox.yMaximum() )&#xa;strClip = &quot;WKT:\n%s\n\nGeojson\n%s\n\nMinX MinY MaxX MaxY\n%s&quot; % ( wkt, json, min_max )&#xa;cb = QtGui.QApplication.clipboard()&#xa;cb.setText( strClip, mode=cb.Clipboard )&#xa;&#xa;nameAction = &quot;Copy GEOM description to Clipboard&quot;&#xa;nameLayer = layer.name()&#xa;msgBar =  QgsUtils.iface.messageBar()&#xa;msg = &quot;Copied GEOM description to Clipboard. Using '%s' how CRS reference!&quot; % nameLayer&#xa;msgBar.pushMessage( &quot;Action %s&quot; % nameAction,  msg, QgsGui.QgsMessageBar.INFO, 4 )&#xa;" icon="" capture="0" type="1" name="Copy Geom description to Clipboard"/>
   </attributeactions>
   <editform>.</editform>
   <editforminit/>
